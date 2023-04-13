@@ -2,7 +2,7 @@ import datetime
 
 class Users:
     def __init__(self, id, name, comments, email, enable, full_name, password, phone = '', 
-                 status = 1, creations = datetime, creation_user_id = -1, should_reset_password = 0, last_reset_password = datetime, last_change_password = datetime):
+                status = 1, creations = datetime, creation_user_id = -1, should_reset_password = 0, last_reset_password = datetime, last_change_password = datetime):
         self.id = id
         self.name = name
         self.comments = comments
@@ -17,5 +17,4 @@ class Users:
         self.should_reset_password = should_reset_password
         self.last_resetpassword = last_reset_password
         self.last_change_password = last_change_password
-
     

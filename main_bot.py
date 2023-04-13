@@ -124,8 +124,6 @@ def users():
     for _user in all_users:
         if _user.status:
             filterResult.append(_user)
-    
-
     result = users_schema.dump(filterResult)
     return jsonify(result)
 
