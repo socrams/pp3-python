@@ -120,7 +120,13 @@ def unknown():
 @app.route('/users/', methods=['GET'])
 def users():
     all_users = User.query.all()
-    result = users_schema.dump(all_users)
+    filterResult = []
+    for _user in all_users:
+        if _user.status:
+            filterResult.append(_user)
+    
+
+    result = users_schema.dump(filterResult)
     return jsonify(result)
 
 @app.route('/users/<id>', methods=['GET'])
