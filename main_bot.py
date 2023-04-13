@@ -1,10 +1,13 @@
 import re
 import random
+import sys
+sys.path.append('c:\python310\lib\site-packages')
 
 from json import JSONEncoder
 
 from flask import Flask,request, jsonify
 from flask_cors import CORS
+
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
