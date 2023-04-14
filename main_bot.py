@@ -1,5 +1,7 @@
 import re
 import random
+import sys
+sys.path.append('c:\python310\lib\site-packages')
 
 from json import JSONEncoder
 
