@@ -5,18 +5,32 @@ from response import Response
 
 class MessageProcessor:
     
+            #response(id, pregunta, respuesta, opciones, más preguntas, más opciones)
     def __init__(self) -> None:
 
         self.responses=[
             
-            #response(id, pregunta, respuesta, opciones, más preguntas, más opciones)
-            Response(1, "hola", "¡Hola! \n¿En qué puedo ayudarte?", "", False, False),
-            Response(2, "buenos dias", "¡Buen día! \n¿En qué puedo ayudarte?", "", False, False),
-            Response(3, "menu","Los menús disponibles son: \n - Información de carreras \n - Documentación necesaria para la inscripción \n - Fechas de parciales \n - Fechas de finales \n - Pedidos de constancias de alumno regular. ¿En qué tema te gustaría profundizar?", "Información de carreras, Documentación necesaria para la inscripción, Fechas de parciales, Fechas de finales, Pedidos de constancias de alumno regular", True, False),
-            Response(4, "informacion de carreras", "Las carreras que dictamos son: \n - Técnico Superior en Análisis de Sistemas \n - Enfermería \n - Seguridad e Higiene. \n ¿En qué carrera te gustaría más información?", "Técnico Superior en Análisis de Sistemas, Enfermería, Seguridad e Higiene", True, False),
-            Response(5, "tecnicatura en sistemas", "La Tecnicatura Superior en Análisis de Sistemas consta de 3 años de duración.\n Tiene como objetivo formar profesionales capaces de analizar, diseñar, desarrollar, implementar y mantener sistemas de información. \n¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
-            Response(6, "enfermeria", "La carrera de Enfermería tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de brindar cuidados integrales a personas, familias y comunidades en diferentes niveles de atención de salud. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
-            Response(7, "seguridad e higiene", "La carrera de Seguridad e Higiene tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de planificar, implementar y dirigir programas de prevención y control de riesgos en el ámbito laboral y ambiental. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
+            Response(1, "hola", 
+                        "¡Hola! \n¿En qué puedo ayudarte?",
+                        "", False, False),
+            Response(2, "buenos dias",
+                        "¡Buen día! \n¿En qué puedo ayudarte?",
+                        "", False, False),
+            Response(3, "menu",
+                        "Elija la opcion deseada: \n 1- Información de carreras \n 2- Documentación necesaria para la inscripción \n 3- Fechas de parciales \n 4- Fechas de finales \n 5- Pedidos de constancias de alumno regular.\n ¿En qué tema te gustaría profundizar?",
+                        "Información de carreras, Documentación necesaria para la inscripción, Fechas de parciales, Fechas de finales, Pedidos de constancias de alumno regular", True, False),
+            Response(4, "informacion de carreras", 
+                        "Las carreras que dictamos son: \n - Técnico Superior en Análisis de Sistemas \n - Enfermería \n - Seguridad e Higiene. \n ¿En qué carrera te gustaría más información?", 
+                        "Técnico Superior en Análisis de Sistemas, Enfermería, Seguridad e Higiene", True, False),
+            Response(5, "tecnicatura en sistemas", 
+                        "La Tecnicatura Superior en Análisis de Sistemas consta de 3 años de duración.\n Tiene como objetivo formar profesionales capaces de analizar, diseñar, desarrollar, implementar y mantener sistemas de información. \n¿En qué turno te gustaría cursar (mañana, tarde, noche)?",
+                        "Mañana, Tarde, Noche", True, False),
+            Response(6, "enfermeria", 
+                        "La carrera de Enfermería tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de brindar cuidados integrales a personas, familias y comunidades en diferentes niveles de atención de salud. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", 
+                        "Mañana, Tarde, Noche", True, False),
+            Response(7, "seguridad e higiene", 
+                        "La carrera de Seguridad e Higiene tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de planificar, implementar y dirigir programas de prevención y control de riesgos en el ámbito laboral y ambiental. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", 
+                        "Mañana, Tarde, Noche", True, False),
             ]
 
 
@@ -63,5 +77,5 @@ class MessageProcessor:
         return self.unknown() if highest_prob[best_match] < 1 else best_match
 
     def unknown(self):
-        response = ["'puedes decirlo con otras palabras, no entendi'", 'no estoy seguro de lo que quieres', 'intenta con otras palabras'][random.randrange(3)]
+        response = ["puedes decirlo con otras palabras, no entendi", 'no estoy seguro de lo que quieres', 'intenta con otras palabras','escribi bien mierda'][random.randrange(3)]
         return response
