@@ -131,8 +131,6 @@ def index(message):
     #return jsonify({ 'id':'server', 'respuesta': get_response(message),'hora':hora_actual})
     ahora = datetime.now()
     hora_actual = ahora.strftime("%H:%M %p")
-
-    print('Palabra ingresada: '+ message)
     #print('Interpretada: ' + interpreter.suggest(message)[0])
     
     finalMessage = message #interpreter.suggest(message)

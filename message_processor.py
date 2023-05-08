@@ -5,32 +5,16 @@ from response import Response
 
 class MessageProcessor:
     
-            #response(id, pregunta, respuesta, opciones, más preguntas, más opciones)
     def __init__(self) -> None:
 
         self.responses=[
-            
-            Response(1, "hola", 
-                        "¡Hola! \n¿En qué puedo ayudarte?",
-                        "", False, False),
-            Response(2, "buenos dias",
-                        "¡Buen día! \n¿En qué puedo ayudarte?",
-                        "", False, False),
-            Response(3, "menu",
-                        "Elija la opcion deseada: \n 1- Información de carreras \n 2- Documentación necesaria para la inscripción \n 3- Fechas de parciales \n 4- Fechas de finales \n 5- Pedidos de constancias de alumno regular.\n ¿En qué tema te gustaría profundizar?",
-                        "Información de carreras, Documentación necesaria para la inscripción, Fechas de parciales, Fechas de finales, Pedidos de constancias de alumno regular", True, False),
-            Response(4, "informacion de carreras", 
-                        "Las carreras que dictamos son: \n - Técnico Superior en Análisis de Sistemas \n - Enfermería \n - Seguridad e Higiene. \n ¿En qué carrera te gustaría más información?", 
-                        "Técnico Superior en Análisis de Sistemas, Enfermería, Seguridad e Higiene", True, False),
-            Response(5, "tecnicatura en sistemas", 
-                        "La Tecnicatura Superior en Análisis de Sistemas consta de 3 años de duración.\n Tiene como objetivo formar profesionales capaces de analizar, diseñar, desarrollar, implementar y mantener sistemas de información. \n¿En qué turno te gustaría cursar (mañana, tarde, noche)?",
-                        "Mañana, Tarde, Noche", True, False),
-            Response(6, "enfermeria", 
-                        "La carrera de Enfermería tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de brindar cuidados integrales a personas, familias y comunidades en diferentes niveles de atención de salud. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", 
-                        "Mañana, Tarde, Noche", True, False),
-            Response(7, "seguridad e higiene", 
-                        "La carrera de Seguridad e Higiene tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de planificar, implementar y dirigir programas de prevención y control de riesgos en el ámbito laboral y ambiental. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", 
-                        "Mañana, Tarde, Noche", True, False),
+            Response(1, "hola", "¡Hola! Bienvenido al Chat del Beltran ¿En qué puedo ayudarte?", "", False, False),
+            Response(2, "buenos dias", "¡Buen día y bienvenido al Chat del Beltran! ¿En qué puedo ayudarte?", "", False, False),
+            Response(3, "menu", "Los menús disponibles son: \n - Información de carreras \n - Documentación necesaria para la inscripción \n - Fechas de parciales \n - Fechas de finales \n - Pedidos de constancias de alumno regular. ¿En qué tema te gustaría profundizar?", "Información de carreras, Documentación necesaria para la inscripción, Fechas de parciales, Fechas de finales, Pedidos de constancias de alumno regular", True, False),
+            Response(4, "informacion de carreras", "Las carreras que dictamos son: \n - Técnico Superior en Análisis de Sistemas \n - Enfermería \n - Seguridad e Higiene. ¿En qué carrera te gustaría más información?", "Técnico Superior en Análisis de Sistemas, Enfermería, Seguridad e Higiene", True, False),
+            Response(5, "tecnicatura en sistemas", "La Tecnicatura Superior en Análisis de Sistemas consta de 3 años de duración y tiene como objetivo formar profesionales capaces de analizar, diseñar, desarrollar, implementar y mantener sistemas de información. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
+            Response(6, "enfermeria", "La carrera de Enfermería tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de brindar cuidados integrales a personas, familias y comunidades en diferentes niveles de atención de salud. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
+            Response(7, "seguridad e higiene", "La carrera de Seguridad e Higiene tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de planificar, implementar y dirigir programas de prevención y control de riesgos en el ámbito laboral y ambiental. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
             ]
 
 
@@ -44,9 +28,7 @@ class MessageProcessor:
         has_required_words = True
 
         for word in user_message:
-            print(word)
             if word in recognized_words:
-                print(word)
                 message_certainty+=1
 
         percentage = float(message_certainty) / float (len(recognized_words))
@@ -55,6 +37,8 @@ class MessageProcessor:
             if word not in user_message:
                 has_required_words = False
                 break
+            else:
+                print('es igual')
 
         if has_required_words or single_response:
             return int(percentage * 100)
@@ -69,13 +53,13 @@ class MessageProcessor:
             highest_prob[bot_response] = self.message_probability(message, list_of_words, single_response, required_words)
 
         for Response in self.responses:
-            response(Response.response, Response.answer, Response.moreQuestion, re.split(r'\s|[,:;.?!-_]\s*', str(Response.answer).lower()))
+            response(Response.response, re.split(r'\s|[,:;.?!-_]\s*', str(Response.answer).lower()), Response.moreQuestion, re.split(r'\s|[,:;.?!-_]\s*', str(Response.answer).lower()))
 
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob)
 
-        return self.unknown() if highest_prob[best_match] < 1 else best_match
+        return self.unknown() if highest_prob[best_match] < 20 else best_match
 
     def unknown(self):
-        response = ["puedes decirlo con otras palabras, no entendi", 'no estoy seguro de lo que quieres', 'intenta con otras palabras','escribi bien mierda'][random.randrange(3)]
+        response = ["'Puedes decirlo con otras palabras? No estoy comprendiendo lo que necesitas. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'", 'No estoy seguro de lo que quieres. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'Intenta con otras palabras. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'][random.randrange(3)]
         return response
