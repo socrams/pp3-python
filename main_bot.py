@@ -22,16 +22,14 @@ CORS(app)
 ######################## Obtener usuarios ################################
 @app.route('/users/', methods=['GET'])
 def users():
-    #all_users = User.query.all()
-    #filterResult = []
-    #for _user in all_users:
-    #    if _user.status:
-    #        filterResult.append(_user)
-    #result = users_schema.dump(filterResult)
-    #return jsonify(result)
-    alluser=User.getUsers()
-    return jsonify(alluser)
-
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    if _token_status == True:
+        alluser=User.getUsers()
+        return jsonify(alluser)
+    else:
+        return jsonify(_token_status), 401
+    
 @app.route('/users/<id>', methods=['GET'])
 def userById(id):
     user = User.getUserById(id)
@@ -41,11 +39,26 @@ def userById(id):
 def addUser():
     name = request.json['name']
     password = request.json['password']
+    description = request.json['description']
     phone = request.json['phone']
     email = request.json['email']
     full_name = request.json['full_name']
 
-    nUser = User(name, password, email, full_name, phone, True, True, datetime.now(), 0, datetime.now(), 0, True, datetime.now())
+    nUser = User()
+    nUser.name=name
+    nUser.password=password
+    nUser.email=email
+    nUser.full_name=full_name
+    nUser.phone=phone
+    nUser.enabled=True
+    nUser.should_reset_password=True
+    nUser.creation_date=datetime.now()
+    nUser.creation_user_id=0
+    nUser.last_update=datetime.now()
+
+    userId=User.getUserIDFromToken(token)
+    if userId:
+        nUser.last_update_user=userId
 
     #db.session.add(nUser)
     #db.session.commit()
@@ -56,10 +69,6 @@ def putUser():
 
     data = request.get_json(force = True)
     id = data['id']
-    change = False
-
-    oldUser = User.query.get(id)
-
     name = data['name']
     password = data['password']
     phone = data['phone']
@@ -68,45 +77,27 @@ def putUser():
     enabled = data['enabled']
     status = data['status']
 
-    if oldUser.name != name:
-        change = True
-        oldUser.name = name
+    user=User()
+    user.id = id
+    user.name= name
+    user.email=email
+    user.enabled=enabled
+    user.full_name=full_name
+    user.password=password
+    user.phone=phone
+    user.status=status
+
+    result=User.updateUser(user)
     
-    if oldUser.password  != password:
-        change = True
-        oldUser.password = password
-
-
-    if oldUser.phone != phone:
-        change = True
-        oldUser.phone = phone
-
-    if oldUser.email != email:
-        change = True
-        oldUser.email = email
-
-    if oldUser.full_name != full_name:
-        change = True
-        oldUser.full_name = full_name
-
-    if oldUser.enabled != enabled:
-        change = True
-        oldUser.enabled = enabled
-
-    if oldUser.status != status:
-        change = True
-        oldUser.status = status
-
-    if change:
-        #db.session.commit()
-        return jsonify("{'result': 'Updateado'}")
+    if 'correctamente' in json.dumps(result):
+        return jsonify(result)
     else:
-        return jsonify("{'result': 'Sin cambios'}")
+        return jsonify(result), 401
     
 
 @app.route('/users/<id>', methods=['DELETE'])
 def delUser(id):
-
+    
     nUser = User.query.get(id)
 
     nUser.status = False
@@ -120,6 +111,25 @@ def delUser(id):
     #    return jsonify("{'result': 'Error'}")
     #end
 
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        #cipher_suite=Fernet(SIGNATURE_KEY)
+        #print(request.form['mail'])
+        #_mail = cipher_suite.decrypt(request.form['mail'])
+        #_pass = cipher_suite.decrypt(request.form['password'])
+        _mail = request.form['mail']
+        _pass = request.form['password']
+        _user = User.login(_mail, _pass)
+        _token = User.generar_token(_user.id)
+        
+        User.setLastLogin(_user.id)
+        return jsonify({'message': _token})
+
+    except Exception as e:
+        print('Error al desencriptar. Detalle', e)
+        return jsonify({'message': 'ERROR'})    
+    
 ######################## Obtener usuarios ################################
 
 
@@ -137,9 +147,6 @@ def index(message):
     mp=MessageProcessor()
     return jsonify({ 'id':'server', 'respuesta': mp.get_response(finalMessage),'hora':hora_actual})
 
-
-
-    
 if __name__=="__main__":
     app.run(debug=True)
 
