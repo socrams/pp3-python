@@ -8,8 +8,9 @@ from datetime import datetime
 from user import User
 from connection import Connection
 from response import Response
-from config import LANGUAJE
+from config import LANGUAJE, SIGNATURE_KEY
 from message_processor import MessageProcessor
+from cryptography.fernet import Fernet
 
 import enchant
 
