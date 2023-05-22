@@ -1,7 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text
+from sqlalchemy.exc import SQLAlchemyError
+import jwt
+from datetime import datetime, timedelta
 from connection import Connection
-
+from config import SIGNATURE_KEY
 Base=declarative_base()
 
 class User(Base):
