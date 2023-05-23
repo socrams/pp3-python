@@ -105,7 +105,7 @@ class User(Base):
     def login(mail, password):
         conn=Connection()
         session=conn.getSession()
-        _query='SELECT * FROM USERS WHERE email=\'' + mail + '\' and password =\'' + password + '\''
+        # _query='SELECT * FROM USERS WHERE email=\'' + mail + '\' and password =\'' + password + '\''
         _user=session.query(User).filter(User.email==mail and User.password==password).first()
         session.close()
         conn.closeConnection()
@@ -129,7 +129,6 @@ class User(Base):
             session.close()
             conn.closeConnection()
 
-
     def generar_token(usuario_id):
         tiempo_expiracion = datetime.utcnow() + timedelta(hours=1)  # Definir tiempo de expiración del token (1 hora en este ejemplo)
         payload = {
@@ -143,7 +142,6 @@ class User(Base):
         try:
             payload = jwt.decode(token, SIGNATURE_KEY, algorithms=['HS256'])
             user_id = payload['usuario_id']
-            print(user_id)
 
         except jwt.ExpiredSignatureError:
             return {'message':'Usuario expirado.'}

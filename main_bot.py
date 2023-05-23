@@ -12,7 +12,7 @@ from config import LANGUAJE, SIGNATURE_KEY
 from message_processor import MessageProcessor
 from cryptography.fernet import Fernet
 
-import enchant
+# import enchant
 
 app = Flask(__name__)
 CORS(app)
@@ -50,8 +50,7 @@ def addUser():
     nUser.password=password
     nUser.email=email
     nUser.full_name=full_name
-    nUser.phone=phone
-    nUser.enabled=True
+    nUser.phone=phonef
     nUser.should_reset_password=True
     nUser.creation_date=datetime.now()
     nUser.creation_user_id=0
@@ -119,8 +118,11 @@ def login():
         #print(request.form['mail'])
         #_mail = cipher_suite.decrypt(request.form['mail'])
         #_pass = cipher_suite.decrypt(request.form['password'])
-        _mail = request.form['mail']
-        _pass = request.form['password']
+        # print ("hola")
+        credentials = request.get_json()
+        _mail = credentials['mail']
+        _pass = credentials['password']
+        # print(_mail)
         _user = User.login(_mail, _pass)
         _token = User.generar_token(_user.id)
         
