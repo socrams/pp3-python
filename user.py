@@ -29,7 +29,7 @@ class User(Base):
     def getUsers():
         conn=Connection()
         session=conn.getSession()
-        allUser=session.query(User).all()
+        allUser=session.query(User).filter(User.enabled == True).all()
         session.close()
         conn.closeConnection()
         return [u.to_dict() for u in allUser]
@@ -44,11 +44,24 @@ class User(Base):
         return _user.to_dict()
     
     @staticmethod
+    def deleteUser(id, nUserId):
+        conn=Connection()
+        session=conn.getSession()
+        _user = session.query(User).filter(User.id==id).first()
+        _user.status = False
+        _user.enabled = False
+        _user.last_update = datetime.now()
+        _user.last_update_user_id = nUserId
+        session.commit()
+        return True
+
+    @staticmethod
     def addUser(user):
         conn=Connection()
         session=conn.getSession()
         try:
             session.add(user)
+            session.commit()
             return {'message':'Usuario agregado correctamente.'}
         except SQLAlchemyError as e:
             return {'message':'Error al intentar guardar el nuevo usuario.'}

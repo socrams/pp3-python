@@ -64,6 +64,7 @@ def addUser():
         nUser.full_name=full_name
         nUser.phone=phone
         nUser.enabled=True
+        nUser.status=True
         nUser.should_reset_password=True
         nUser.creation_date=datetime.now()
         nUser.creation_user_id=0
@@ -107,10 +108,7 @@ def putUser():
         user.status=status
 
         result = User.updateUser(user)
-        if 'correctamente' in json.dumps(result):
-            return jsonify(result)
-        else:
-            return jsonify(result), 401
+        return jsonify(result)
     else:
         return jsonify(_token_status), 401
     
@@ -121,16 +119,12 @@ def delUser(id):
     
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
-
     if (_token_status) == True:
-        nUser = User.query.get(id)
-
-        nUser.status = False
-        nUser.last_update = datetime.now()
-        nUser.enabled = False
-
-        User.updateUser(nUser)
-        return ({'message': 'Usuario eliminado correctamente.'})
+        nUserId = User.getUserIDFromToken(_token)
+        if User.deleteUser(id, nUserId):
+            return ({'message': 'Usuario eliminado correctamente.'})
+        else:
+            return ({'message': 'Usuario no eliminado.'})
     else:
         return jsonify(_token_status), 401
 
