@@ -21,6 +21,15 @@ CORS(app)
 #interpreter=enchant.Dict(LANGUAJE)
 
 ######################## Obtener usuarios ################################
+@app.route('/validateToken/', methods=['GET'])
+def validateToken():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    if _token_status == True:
+        return jsonify({'message': 'token valido'})
+    else:
+        return jsonify(_token_status), 401
+    
 @app.route('/users/', methods=['GET'])
 def users():
     _token = request.headers.get('Authorization')
@@ -38,78 +47,93 @@ def userById(id):
 
 @app.route('/users/', methods=['POST'])
 def addUser():
-    name = request.json['name']
-    password = request.json['password']
-    description = request.json['description']
-    phone = request.json['phone']
-    email = request.json['email']
-    full_name = request.json['full_name']
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
 
-    nUser = User()
-    nUser.name=name
-    nUser.password=password
-    nUser.email=email
-    nUser.full_name=full_name
-    nUser.phone=phonef
-    nUser.should_reset_password=True
-    nUser.creation_date=datetime.now()
-    nUser.creation_user_id=0
-    nUser.last_update=datetime.now()
+    if (_token_status) == True:
+        name = request.json['name']
+        password = request.json['password']
+        phone = request.json['phone']
+        email = request.json['email']
+        full_name = request.json['full_name']
 
-    userId=User.getUserIDFromToken(token)
-    if userId:
-        nUser.last_update_user=userId
+        nUser = User()
+        nUser.name=name
+        nUser.password=password
+        nUser.email=email
+        nUser.full_name=full_name
+        nUser.phone=phone
+        nUser.enabled=True
+        nUser.should_reset_password=True
+        nUser.creation_date=datetime.now()
+        nUser.creation_user_id=0
+        nUser.last_update=datetime.now()
 
-    #db.session.add(nUser)
-    #db.session.commit()
-    return "" #user_schema.jsonify(nUser)
+        userId=User.getUserIDFromToken(_token)
+        if userId:
+            nUser.last_update_user=userId
+
+        User.addUser(nUser);
+        return jsonify({'message': 'usuario creado correctamente'})
+    else:
+        return jsonify(_token_status), 401
+    
 
 @app.route('/users/', methods=['PUT'])
 def putUser():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
 
-    data = request.get_json(force = True)
-    id = data['id']
-    name = data['name']
-    password = data['password']
-    phone = data['phone']
-    email = data['email']
-    full_name = data['full_name']
-    enabled = data['enabled']
-    status = data['status']
-
-    user=User()
-    user.id = id
-    user.name= name
-    user.email=email
-    user.enabled=enabled
-    user.full_name=full_name
-    user.password=password
-    user.phone=phone
-    user.status=status
-
-    result=User.updateUser(user)
+    if (_token_status) == True:
     
-    if 'correctamente' in json.dumps(result):
-        return jsonify(result)
+        data = request.get_json(force = True)
+        id = data['id']
+        name = data['name']
+        password = data['password']
+        phone = data['phone']
+        email = data['email']
+        full_name = data['full_name']
+        enabled = data['enabled']
+        status = data['status']
+
+        user=User()
+        user.id = id
+        user.name= name
+        user.email=email
+        user.enabled=enabled
+        user.full_name=full_name
+        user.password=password
+        user.phone=phone
+        user.status=status
+
+        result = User.updateUser(user)
+        if 'correctamente' in json.dumps(result):
+            return jsonify(result)
+        else:
+            return jsonify(result), 401
     else:
-        return jsonify(result), 401
+        return jsonify(_token_status), 401
+    
     
 
 @app.route('/users/<id>', methods=['DELETE'])
 def delUser(id):
     
-    nUser = User.query.get(id)
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
 
-    nUser.status = False
-    nUser.last_update = datetime.now()
-    nUser.enabled = False
-    
-    ##try:
-    #db.session.commit()
-    return jsonify("{'result': 'Eliminado'}")
-    #catch:
-    #    return jsonify("{'result': 'Error'}")
-    #end
+    if (_token_status) == True:
+        nUser = User.query.get(id)
+
+        nUser.status = False
+        nUser.last_update = datetime.now()
+        nUser.enabled = False
+
+        User.updateUser(nUser)
+        return ({'message': 'Usuario eliminado correctamente.'})
+    else:
+        return jsonify(_token_status), 401
+
 
 @app.route('/login', methods=['POST'])
 def login():

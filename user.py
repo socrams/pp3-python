@@ -130,12 +130,12 @@ class User(Base):
             conn.closeConnection()
 
     def generar_token(usuario_id):
-        tiempo_expiracion = datetime.utcnow() + timedelta(hours=1)  # Definir tiempo de expiración del token (1 hora en este ejemplo)
+        tiempo_expiracion = datetime.utcnow() + timedelta(minutes=30) 
         payload = {
             'usuario_id': usuario_id,
             'exp': tiempo_expiracion
         }
-        token = jwt.encode(payload, SIGNATURE_KEY, algorithm='HS256')  # 'secreto' es la clave secreta para firmar el token
+        token = jwt.encode(payload, SIGNATURE_KEY, algorithm='HS256') 
         return token
 
     def validateToken(token):
