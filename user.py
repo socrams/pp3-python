@@ -2,6 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text
 from sqlalchemy.exc import SQLAlchemyError
 import jwt
+import hashlib
 from datetime import datetime, timedelta
 from connection import Connection
 from config import SIGNATURE_KEY
@@ -118,11 +119,17 @@ class User(Base):
     def login(mail, password):
         conn=Connection()
         session=conn.getSession()
-        # _query='SELECT * FROM USERS WHERE email=\'' + mail + '\' and password =\'' + password + '\''
-        _user=session.query(User).filter(User.email==mail and User.password==password).first()
+        print(mail)
+        print(password)
+        _user=session.query(User).filter(User.email==mail).first()    
         session.close()
         conn.closeConnection()
-        return _user
+        print(_user.password)
+        if password == _user.password:
+            print('son iguales')
+            return _user
+        else:
+            return None
 
     @staticmethod
     def setLastLogin(id):
@@ -173,7 +180,7 @@ class User(Base):
             return -99
         return user_id
 
-
+    
     def to_dict(self):
         return {
             'id': self.id,

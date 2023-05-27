@@ -96,7 +96,7 @@ def putUser():
         full_name = data['full_name']
         enabled = data['enabled']
         status = data['status']
-
+        print(password)
         user=User()
         user.id = id
         user.name= name
