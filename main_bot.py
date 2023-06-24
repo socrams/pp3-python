@@ -80,16 +80,6 @@ def addUser():
     else:
         return jsonify(_token_status), 401
     
-@app.route('/carrera/', methods=['GET'])
-def getCarreras():
-    _token = request.headers.get('Authorization')
-    _token_status = User.validateToken(_token)
-
-    if _token_status == True:
-        carreras=Carrera.getCarreras()
-        return jsonify(carreras)
-    else:
-        return jsonify(_token_status), 401
 
 @app.route('/users/', methods=['PUT'])
 def putUser():
@@ -162,6 +152,54 @@ def login():
         print('Error al desencriptar. Detalle', e)
         return jsonify({'message': 'ERROR'})    
     
+@app.route('/carrera/', methods=['GET', 'POST', 'PUT'])
+def AMGCarreras():
+        
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    userId=User.getUserIDFromToken(_token)
+         
+    if _token_status == True:
+        
+        if request.method == 'GET':
+            carreras=Carrera.getCarreras()
+            return jsonify(carreras)
+        if request.method == 'POST' or request.method == 'PUT':
+            data=request.get_json(force = True)
+            carrera=Carrera()
+            carrera.id = data['id']
+            carrera.descripcion = data['descripcion']
+            carrera.duracion = data['duracion']
+            if carrera.id is not None:
+                carrera.fecha_modificacion = datetime.now()
+                carrera.modificacion_usuario_id = userId
+                result = Carrera.updateCarrera(carrera, userId)
+            else:
+                carrera.fecha_creacion = datetime.now()
+                carrera.creacion_usuario_id = userId
+                result = Carrera.addCarrera(carrera)
+        return jsonify(result), 200
+    else:
+        return jsonify(_token_status), 401
+    
+
+@app.route('/carrera/<id>', methods=['GET', 'DELETE'])
+def DGCarrera(id):
+     
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    userId=User.getUserIDFromToken(_token)
+         
+    if _token_status == True:
+        if request.method == 'GET':
+            carrera=Carrera.getCarreraById(id)
+            return jsonify(carrera)
+        if request.method == 'DELETE':
+            result = Carrera.delCarrera(id)
+            return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+
 ######################## Obtener usuarios ################################
 
 

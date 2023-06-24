@@ -17,7 +17,7 @@ class Carrera(Base):
     fecha_modificacion = Column(DATE)
     modificacion_usuario_id = Column(Integer)
     
-
+   
     @staticmethod
     def getCarreras():
         conn=Connection()
