@@ -7,6 +7,9 @@ from datetime import datetime
 
 from user import User
 from carrera import Carrera
+from materia import Materia
+from materia_profesor import MateriaProfesor
+from carrera_informacion import CarreraInformacion
 from connection import Connection
 from response import Response
 from config import LANGUAJE, SIGNATURE_KEY
@@ -151,8 +154,12 @@ def login():
     except Exception as e:
         print('Error al desencriptar. Detalle', e)
         return jsonify({'message': 'ERROR'})    
-    
-@app.route('/carrera/', methods=['GET', 'POST', 'PUT'])
+
+######################## Obtener usuarios ################################
+
+
+######################## Obtener carrera ################################
+@app.route('/carrera', methods=['GET', 'POST', 'PUT'])
 def AMGCarreras():
         
     _token = request.headers.get('Authorization')
@@ -200,7 +207,148 @@ def DGCarrera(id):
     else:
         return jsonify(_token_status), 401
 
-######################## Obtener usuarios ################################
+@app.route('/carrera/informacion', methods=['GET', 'POST', 'PUT'])
+def AMGInformacion():
+        
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    userId=User.getUserIDFromToken(_token)
+         
+    if _token_status == True:
+        
+        if request.method == 'GET':
+            informacion=CarreraInformacion.getCarreraInformacion()
+            return jsonify(informacion)
+        
+        if request.method == 'POST' or request.method == 'PUT':
+            data=request.get_json(force = True)
+            informacion=CarreraInformacion()
+            informacion.id = data['id']
+            informacion.carrera_id = data['carrera_id']
+            informacion.tipo = data['tipo']
+            informacion.url = data['url']
+            informacion.vigencia = data['vigencia']
+
+            if informacion.id is None:
+                result = CarreraInformacion.addInformacion(informacion) 
+            else:
+                result = CarreraInformacion.updateInformacion(informacion)
+            return jsonify(result), 200
+    else:
+        return jsonify(_token_status), 401
+            
+@app.route('/carrera/informacion/<id>', methods=['GET', 'DELETE'])
+def DGCarreraInformacion(id):
+     
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+         
+    if _token_status == True:
+        if request.method == 'GET':
+            informacion=CarreraInformacion.getInformacionById(id)
+            return jsonify(informacion)
+        if request.method == 'DELETE':
+            result = CarreraInformacion.delInformacion(id)
+            return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+######################## Obtener carrera ################################
+
+
+######################## Obtener materia ################################
+@app.route('/carrera/materias/', methods=['GET','POST', 'PUT'])
+def AMGMateria():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    userId=User.getUserIDFromToken(_token)
+         
+    if _token_status == True:    
+        if request.method == 'GET':
+            materias=Materia.getMateria()
+            return jsonify(materias)
+
+        if request.method == 'POST' or request.method == 'PUT':
+            data=request.get_json(force = True)
+            materia=Materia()
+            materia.id = data['id']
+            materia.carrera_id = data['carrera_id']
+            materia.anio = data['anio']
+            materia.descripcion = data['descripcion']
+            materia.vigencia = data['vigencia']
+
+            if materia.id is None:
+                result = Materia.addMateria(materia)
+                return jsonify(result)
+            else:
+                result = Materia.updateMateria(materia)
+                return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+    
+@app.route('/carrera/materias/<id>', methods=['GET','DELETE'])
+def BGMateria(id):
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    userId=User.getUserIDFromToken(_token)
+         
+    if _token_status == True:    
+        if request.method == 'GET':
+            materia=Materia.getMateriaById(id)
+            return jsonify(materia)
+        
+        if request.method == 'DELETE':
+            result = Materia.deleteMateria(id)
+            return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+
+@app.route('/carrera/materias/profesor/', methods=['GET','POST', 'PUT'])
+def AMGProfesor():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+         
+    if _token_status == True:    
+        if request.method == 'GET':
+            profesor=MateriaProfesor().getMateriaProfesor()
+            return jsonify(profesor)
+
+        if request.method == 'POST' or request.method == 'PUT':
+            data=request.get_json(force = True)
+            profesor=MateriaProfesor()
+            profesor.id = data['id']
+            profesor.materia_id = data['materia_id']
+            profesor.comision = data['comision']
+            profesor.turno = data['turno']
+            profesor.profesor = data['profesor']
+            profesor.desde = data['desde']
+            profesor.hasta = data['hasta']
+
+            if profesor.id is None:
+                result = MateriaProfesor.addProfesor(profesor)
+                return jsonify(result)
+            else:
+                result = MateriaProfesor.updateProfesor(profesor)
+                return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+    
+@app.route('/carrera/materias/profesor/<id>', methods=['GET','DELETE'])
+def BGProfesor(id):
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+         
+    if _token_status == True:    
+        if request.method == 'GET':
+            materia=MateriaProfesor.getMateriaProfesorById(id)
+            return jsonify(materia)
+        
+        if request.method == 'DELETE':
+            result = MateriaProfesor.deleteProfesor(id)
+            return jsonify(result)
+    else:
+        return jsonify(_token_status), 401
+
+######################## Obtener materia ################################
 
 
 ######################## Chat manager ################################

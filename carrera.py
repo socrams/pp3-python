@@ -54,10 +54,18 @@ class Carrera(Base):
     def delCarrera(id):
         conn=Connection()
         session=conn.getSession()
-        session.delete(Carrera.id == id)
-        session.commit()
-        return {'message':'Se elimino la carrera.'}
-
+        carrera=session.query(Carrera).filter(Carrera.id == id).first()
+        if carrera:
+            session.delete(carrera)
+            session.commit()
+            session.close()
+            conn.closeConnection()
+            return {'message':'Se elimino la carrera.'}
+        else:
+            session.close()
+            conn.closeConnection()
+            return {'message': 'No se encontró el ID'}
+        
     @staticmethod
     def updateCarrera(carrera, userId):
         conn=Connection()
