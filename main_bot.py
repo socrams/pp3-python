@@ -6,6 +6,7 @@ from flask_cors import CORS
 from datetime import datetime
 
 from user import User
+from carrera import Carrera
 from connection import Connection
 from response import Response
 from config import LANGUAJE, SIGNATURE_KEY
@@ -79,6 +80,16 @@ def addUser():
     else:
         return jsonify(_token_status), 401
     
+@app.route('/carrera/', methods=['GET'])
+def getCarreras():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+
+    if _token_status == True:
+        carreras=Carrera.getCarreras()
+        return jsonify(carreras)
+    else:
+        return jsonify(_token_status), 401
 
 @app.route('/users/', methods=['PUT'])
 def putUser():
