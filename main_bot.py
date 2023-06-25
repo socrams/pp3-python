@@ -174,10 +174,11 @@ def AMGCarreras():
         if request.method == 'POST' or request.method == 'PUT':
             data=request.get_json(force = True)
             carrera=Carrera()
-            carrera.id = data['id']
+            if request.method == 'PUT':
+                carrera.id = data['id']
             carrera.descripcion = data['descripcion']
             carrera.duracion = data['duracion']
-            if carrera.id is not None:
+            if carrera.id and carrera.id is not None:
                 carrera.fecha_modificacion = datetime.now()
                 carrera.modificacion_usuario_id = userId
                 result = Carrera.updateCarrera(carrera, userId)
