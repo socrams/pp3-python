@@ -191,8 +191,8 @@ def AMGCarreras():
         return jsonify(_token_status), 401
     
 
-@app.route('/carrera/<id>', methods=['GET', 'DELETE'])
-def DGCarrera(id):
+@app.route('/carrera/<idCarrera>', methods=['GET', 'DELETE'])
+def DGCarrera(idCarrera):
      
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
@@ -208,8 +208,8 @@ def DGCarrera(id):
     else:
         return jsonify(_token_status), 401
 
-@app.route('/carrera/informacion', methods=['GET', 'POST', 'PUT'])
-def AMGInformacion():
+@app.route('/carrera/<idCarrera>/informacion', methods=['GET', 'POST', 'PUT'])
+def AMGInformacion(idCarrera):
         
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
@@ -218,7 +218,7 @@ def AMGInformacion():
     if _token_status == True:
         
         if request.method == 'GET':
-            informacion=CarreraInformacion.getCarreraInformacion()
+            informacion=CarreraInformacion.getCarreraInformacion(idCarrera)
             return jsonify(informacion)
         
         if request.method == 'POST' or request.method == 'PUT':
@@ -238,8 +238,8 @@ def AMGInformacion():
     else:
         return jsonify(_token_status), 401
             
-@app.route('/carrera/informacion/<id>', methods=['GET', 'DELETE'])
-def DGCarreraInformacion(id):
+@app.route('/carrera/<idCarrera>/informacion/<id>', methods=['GET', 'DELETE'])
+def DGCarreraInformacion(idCarrera, id):
      
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
@@ -257,15 +257,15 @@ def DGCarreraInformacion(id):
 
 
 ######################## Obtener materia ################################
-@app.route('/carrera/materias/', methods=['GET','POST', 'PUT'])
-def AMGMateria():
+@app.route('/carrera/<idCarrera>/materias/', methods=['GET','POST', 'PUT'])
+def AMGMateria(idCarrera):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
     userId=User.getUserIDFromToken(_token)
          
     if _token_status == True:    
         if request.method == 'GET':
-            materias=Materia.getMateria()
+            materias=Materia.getMateria(idCarrera)
             return jsonify(materias)
 
         if request.method == 'POST' or request.method == 'PUT':
@@ -286,8 +286,8 @@ def AMGMateria():
     else:
         return jsonify(_token_status), 401
     
-@app.route('/carrera/materias/<id>', methods=['GET','DELETE'])
-def BGMateria(id):
+@app.route('/carrera/<idCarrera>/materias/<id>', methods=['GET','DELETE'])
+def BGMateria(idCarrera, id):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
     userId=User.getUserIDFromToken(_token)
@@ -303,14 +303,14 @@ def BGMateria(id):
     else:
         return jsonify(_token_status), 401
 
-@app.route('/carrera/materias/profesor/', methods=['GET','POST', 'PUT'])
-def AMGProfesor():
+@app.route('/carrera/<idCarrera>/materias/<id>/profesor/', methods=['GET','POST', 'PUT'])
+def AMGProfesor(idCarrera, id):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
          
     if _token_status == True:    
         if request.method == 'GET':
-            profesor=MateriaProfesor().getMateriaProfesor()
+            profesor=MateriaProfesor().getMateriaProfesor(id)
             return jsonify(profesor)
 
         if request.method == 'POST' or request.method == 'PUT':
@@ -333,8 +333,8 @@ def AMGProfesor():
     else:
         return jsonify(_token_status), 401
     
-@app.route('/carrera/materias/profesor/<id>', methods=['GET','DELETE'])
-def BGProfesor(id):
+@app.route('/carrera/<idCarrera>/materias/<idMateria>/profesor/<id>', methods=['GET','DELETE'])
+def BGProfesor(idCarrera, idMateria, id):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
          

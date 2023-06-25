@@ -18,10 +18,10 @@ class MateriaProfesor(Base):
     hasta = Column(DATE)
 
     @staticmethod
-    def getMateriaProfesor():
+    def getMateriaProfesor(id):
         conn=Connection()
         session=conn.getSession()
-        profesor=session.query(MateriaProfesor).filter(or_(MateriaProfesor.hasta.is_(None), MateriaProfesor.hasta > datetime.now())).all()
+        profesor=session.query(MateriaProfesor).filter(MateriaProfesor.materia_id == id, or_(MateriaProfesor.hasta.is_(None), MateriaProfesor.hasta > datetime.now())).all()
         session.close()
         conn.closeConnection()
         return [m.to_dict() for m in profesor]
@@ -107,6 +107,6 @@ class MateriaProfesor(Base):
             'comsion': self.comision,
             'turno': self.turno,
             'profesor': self.profesor,
-            'desde': self.desde,
-            'hasta': self.hasta
+            'desde': self.desde if self.desde is not None else None,
+            'hasta': self.hasta if self.hasta is not None else None
         }

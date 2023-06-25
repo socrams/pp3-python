@@ -16,10 +16,10 @@ class CarreraInformacion(Base):
     vigencia = Column(DATE)
     
     @staticmethod
-    def getCarreraInformacion():
+    def getCarreraInformacion(idCarrera):
         conn=Connection()
         session=conn.getSession()
-        carreras=session.query(CarreraInformacion).filter(or_(CarreraInformacion.vigencia.is_(None), CarreraInformacion.vigencia > datetime.now())).all()
+        carreras=session.query(CarreraInformacion).filter(CarreraInformacion.carrera_id == idCarrera, or_(CarreraInformacion.vigencia.is_(None), CarreraInformacion.vigencia > datetime.now())).all()
         session.close()
         conn.closeConnection()
         return [c.to_dict() for c in carreras]

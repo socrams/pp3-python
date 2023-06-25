@@ -16,10 +16,10 @@ class Materia(Base):
     vigencia = Column(DATE)
     
     @staticmethod
-    def getMateria():
+    def getMateria(idCarrera):
         conn=Connection()
         session=conn.getSession()
-        materias=session.query(Materia).all()
+        materias=session.query(Materia).filter(Materia.carrera_id == idCarrera).all()
         session.close()
         conn.closeConnection()
         return [m.to_dict() for m in materias]
