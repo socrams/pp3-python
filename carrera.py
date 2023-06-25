@@ -98,6 +98,6 @@ class Carrera(Base):
             'duracion': self.duracion,
             'fecha_creacion': self.fecha_creacion,
             'creacion_usuario_id': self.creacion_usuario_id,
-            'fecha_modificacion': self.fecha_modificacion,
-            'modificacion_usuario_id': self.modificacion_usuario_id
+            'fecha_modificacion': self.fecha_modificacion if self.fecha_modificacion is not None else None,
+            'modificacion_usuario_id': self.modificacion_usuario_id if self.modificacion_usuario_id is not None else None
         }

@@ -94,5 +94,5 @@ class Materia(Base):
             'carrera_id': self.carrera_id,
             'anio': self.anio,
             'descripcion': self.descripcion,
-            'vigencia': self.vigencia
+            'vigencia': self.vigencia if self.vigencia is not None else None
         }
