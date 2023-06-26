@@ -270,12 +270,18 @@ def AMGMateria(idCarrera):
 
         if request.method == 'POST' or request.method == 'PUT':
             data=request.get_json(force = True)
+            print(data)
             materia=Materia()
-            materia.id = data['id']
+            if 'id' in data:
+                materia.id = data['id']
+            else:
+                materia.id = None
+
             materia.carrera_id = data['carrera_id']
             materia.anio = data['anio']
             materia.descripcion = data['descripcion']
-            materia.vigencia = data['vigencia']
+            if 'vigencia' in data:
+                materia.vigencia = data['vigencia']
 
             if materia.id is None:
                 result = Materia.addMateria(materia)
