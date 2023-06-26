@@ -200,10 +200,10 @@ def DGCarrera(idCarrera):
          
     if _token_status == True:
         if request.method == 'GET':
-            carrera=Carrera.getCarreraById(id)
+            carrera=Carrera.getCarreraById(idCarrera)
             return jsonify(carrera)
         if request.method == 'DELETE':
-            result = Carrera.delCarrera(id)
+            result = Carrera.delCarrera(idCarrera)
             return jsonify(result)
     else:
         return jsonify(_token_status), 401
