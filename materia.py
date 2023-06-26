@@ -67,18 +67,18 @@ class Materia(Base):
     def updateMateria(materia):
         conn=Connection()
         session=conn.getSession()
-        oldMateria = session.query(Materia).filter(Materia.id == id).first()
+        oldMateria = session.query(Materia).filter(Materia.id == materia.id).first()
         
         if oldMateria:
             if oldMateria.descripcion != materia.descripcion:
                 oldMateria.descripcion = materia.descripcion
-            
+
             if oldMateria.vigencia != materia.vigencia:
                 oldMateria.vigencia = materia.vigencia
             
             if oldMateria.anio != materia.anio:
                 oldMateria.anio = materia.anio
-            
+
             session.commit()
             session.close()
             conn.closeConnection()
