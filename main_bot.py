@@ -367,9 +367,9 @@ def index(message):
     ahora = datetime.now()
     hora_actual = ahora.strftime("%H:%M %p")
     #print('Interpretada: ' + interpreter.suggest(message)[0])
-    
+    responses=Response.getResponses()
     finalMessage = message #interpreter.suggest(message)
-    mp=MessageProcessor()
+    mp=MessageProcessor(responses)
     return jsonify({ 'id':'server', 'respuesta': mp.get_response(finalMessage),'hora':hora_actual})
 
 if __name__=="__main__":

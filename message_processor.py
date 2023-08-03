@@ -5,23 +5,13 @@ from response import Response
 
 class MessageProcessor:
     
-    def __init__(self) -> None:
-
-        self.responses=[
-            Response(1, "hola", "¡Hola! Bienvenido al Chat del Beltran ¿En qué puedo ayudarte?", "", False, False),
-            Response(2, "buenos dias", "¡Buen día y bienvenido al Chat del Beltran! ¿En qué puedo ayudarte?", "", False, False),
-            Response(3, "menu", "Los menús disponibles son: \n - Información de carreras \n - Documentación necesaria para la inscripción \n - Fechas de parciales \n - Fechas de finales \n - Pedidos de constancias de alumno regular. ¿En qué tema te gustaría profundizar?", "Información de carreras, Documentación necesaria para la inscripción, Fechas de parciales, Fechas de finales, Pedidos de constancias de alumno regular", True, False),
-            Response(4, "informacion de carreras", "Las carreras que dictamos son: \n - Técnico Superior en Análisis de Sistemas \n - Enfermería \n - Seguridad e Higiene. ¿En qué carrera te gustaría más información?", "Técnico Superior en Análisis de Sistemas, Enfermería, Seguridad e Higiene", True, False),
-            Response(5, "tecnicatura en sistemas", "La Tecnicatura Superior en Análisis de Sistemas consta de 3 años de duración y tiene como objetivo formar profesionales capaces de analizar, diseñar, desarrollar, implementar y mantener sistemas de información. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
-            Response(6, "enfermeria", "La carrera de Enfermería tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de brindar cuidados integrales a personas, familias y comunidades en diferentes niveles de atención de salud. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
-            Response(7, "seguridad e higiene", "La carrera de Seguridad e Higiene tiene una duración de 3 años y tiene como objetivo formar profesionales capaces de planificar, implementar y dirigir programas de prevención y control de riesgos en el ámbito laboral y ambiental. ¿En qué turno te gustaría cursar (mañana, tarde, noche)?", "Mañana, Tarde, Noche", True, False),
-            ]
-
+    def __init__(self, responses) -> None:
+        self.responses=responses
 
     def get_response(self, user_input):
         split_message = re.split(r'\s|[,:;.?!-_]\s*', str(user_input).lower())
-        response = self.check_all_message(split_message)
-        return response
+        _response = self.check_all_message(split_message)
+        return _response
 
     def message_probability(self, user_message, recognized_words, single_response=False, required_word=[]):
         message_certainty = 0
@@ -48,12 +38,12 @@ class MessageProcessor:
     def check_all_message(self, message):
         highest_prob = {}
 
-        def response(bot_response, list_of_words, single_response = False, required_words=[]):
+        def botresponse(bot_response, list_of_words, single_response = False, required_words=[]):
             nonlocal highest_prob
             highest_prob[bot_response] = self.message_probability(message, list_of_words, single_response, required_words)
 
-        for Response in self.responses:
-            response(Response.response, re.split(r'\s|[,:;.?!-_]\s*', str(Response.answer).lower()), Response.moreQuestion, re.split(r'\s|[,:;.?!-_]\s*', str(Response.answer).lower()))
+        for r in self.responses:
+            botresponse(r.response, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()), r.moreQuestion, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()))
 
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob)
