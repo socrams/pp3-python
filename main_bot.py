@@ -1,8 +1,9 @@
 from json import JSONEncoder
+import sys
+sys.path.append('c:\python310\lib\site-packages')
 
 from flask import Flask,request, jsonify
 from flask_cors import CORS
-
 from datetime import datetime
 
 from user import User
