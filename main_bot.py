@@ -370,7 +370,15 @@ def index(message):
     responses=Response.getResponses()
     finalMessage = message #interpreter.suggest(message)
     mp=MessageProcessor(responses)
-    return jsonify({ 'id':'server', 'respuesta': mp.get_response(finalMessage),'hora':hora_actual})
+    response=mp.get_response(finalMessage)
+    return jsonify({ 'id':'server', 'respuesta': getObject(response, responses),'hora':hora_actual})
+
+
+def getObject(message, responses):
+    for r in responses:
+        if (r.response == message):
+            print(r.to_dict())
+            return r.to_dict()
 
 if __name__=="__main__":
     app.run(debug=True)
