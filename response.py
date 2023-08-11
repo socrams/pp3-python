@@ -52,12 +52,10 @@ class Response(Base):
     def updateResponse(_response):
         conn=Connection()
         session=conn.getSession()
-        dbResponse=session.query(Response).filter(id == _response.id).first()
+        dbResponse = session.query(Response).filter(Response.id == _response.id).first()
         modificated = False
-
+        print(dbResponse)
         if (dbResponse):
-            ##aca nunca entra esto no se muetra
-            print("entre")
             if (dbResponse.answer != _response.answer):
                 dbResponse.answer = _response.answer
                 modificated = True
@@ -88,7 +86,6 @@ class Response(Base):
 
         session.close()
         conn.closeConnection()
-        print (_response.to_dict())
         return message    
 
 
