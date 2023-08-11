@@ -56,6 +56,8 @@ class Response(Base):
         modificated = False
 
         if (dbResponse):
+            ##aca nunca entra esto no se muetra
+            print("entre")
             if (dbResponse.answer != _response.answer):
                 dbResponse.answer = _response.answer
                 modificated = True
@@ -77,7 +79,6 @@ class Response(Base):
                 modificated = True
 
             if (modificated):
-                print (modificated.to_dict())
                 session.commit()
                 message = {'message':'Se actualizo la respuesta.'}
             else:

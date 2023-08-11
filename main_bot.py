@@ -376,14 +376,14 @@ def putResponse(id):
     moreOptions = data['moreOptions']
     moreQuestion = data['moreQuestion']
     response = data['response']
-    response=Response()
-    response.id = id
-    response.answer= answer
-    response.response=response
-    response.options=options
-    response.moreQuestion=moreQuestion
-    response.moreOptions=moreOptions
-    result = Response.updateResponse(response)
+    otro_response=Response()
+    otro_response.id = id
+    otro_response.answer= answer
+    otro_response.response=response
+    otro_response.options=options
+    otro_response.moreQuestion=moreQuestion
+    otro_response.moreOptions=moreOptions
+    result = Response.updateResponse(otro_response)
     return jsonify(result)
 
 
