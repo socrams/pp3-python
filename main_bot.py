@@ -359,6 +359,33 @@ def BGProfesor(idCarrera, idMateria, id):
 
 ######################## Obtener materia ################################
 
+######################## Response manager ################################
+
+@app.route('/response/', methods=['GET'])
+def response():
+        responses=Response.getResponses()
+        return jsonify({'responses' : [response.to_dict() for response in responses]})
+
+@app.route('/response/<id>', methods=['PUT'])    
+def putResponse(id):
+    data = request.get_json(force = True)
+    id = data['id']
+    answer = data['answer']
+    response= data['response']
+    options = data['options']
+    moreOptions = data['moreOptions']
+    moreQuestion = data['moreQuestion']
+    response = data['response']
+    response=Response()
+    response.id = id
+    response.answer= answer
+    response.response=response
+    response.options=options
+    response.moreQuestion=moreQuestion
+    response.moreOptions=moreOptions
+    result = Response.updateResponse(response)
+    return jsonify(result)
+
 
 ######################## Chat manager ################################
 @app.route('/chat/<message>', methods=['GET'])
@@ -381,7 +408,7 @@ def getObject(message, responses):
         if (r.response == message):
             print(r.to_dict())
             return r.to_dict()
-    
+
     error_response = Response()
     error_response.answer = "Palabra no encontrada"
     error_response.id = -1

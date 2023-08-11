@@ -77,6 +77,7 @@ class Response(Base):
                 modificated = True
 
             if (modificated):
+                print (modificated.to_dict())
                 session.commit()
                 message = {'message':'Se actualizo la respuesta.'}
             else:
@@ -86,6 +87,7 @@ class Response(Base):
 
         session.close()
         conn.closeConnection()
+        print (_response.to_dict())
         return message    
 
 
