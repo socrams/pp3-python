@@ -1,5 +1,6 @@
 from json import JSONEncoder
 import sys
+import random
 sys.path.append('c:\python310\lib\site-packages')
 
 from flask import Flask,request, jsonify
@@ -380,6 +381,16 @@ def getObject(message, responses):
         if (r.response == message):
             print(r.to_dict())
             return r.to_dict()
+    
+    error_response = Response()
+    error_response.answer = "Palabra no encontrada"
+    error_response.id = -1
+    error_response.response = ['Puedes decirlo con otras palabras? No estoy comprendiendo lo que necesitas. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'No estoy seguro de lo que quieres. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'Intenta con otras palabras. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'][random.randrange(3)]
+    error_response.options = "Menu, informacion de carreras"
+    error_response.moreOptions = True
+    error_response.moreQuestion = False
+
+    return error_response.to_dict()
 
 if __name__=="__main__":
     app.run(debug=True)

@@ -1,5 +1,4 @@
 import re
-import random
 
 from response import Response
 
@@ -51,5 +50,5 @@ class MessageProcessor:
         return self.unknown() if highest_prob[best_match] < 20 else best_match
 
     def unknown(self):
-        response = ["'Puedes decirlo con otras palabras? No estoy comprendiendo lo que necesitas. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'", 'No estoy seguro de lo que quieres. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'Intenta con otras palabras. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'][random.randrange(3)]
+        response = ["ERROR"]
         return response
