@@ -22,6 +22,14 @@ class Response(Base):
         conn.closeConnection()
         return [r.to_dict() for r in allresponse]
     
+    def getResponseLocal():
+        conn=Connection()
+        session=conn.getSession()
+        allresponse=session.query(Response).all()
+        session.close()
+        conn.closeConnection()
+        return allresponse
+    
     @staticmethod
     def getResponse(_id):
         conn=Connection()
@@ -87,6 +95,7 @@ class Response(Base):
         session.close()
         conn.closeConnection()
         return message    
+
 
 
     def to_dict(self):

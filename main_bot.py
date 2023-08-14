@@ -396,7 +396,7 @@ def index(message):
     ahora = datetime.now()
     hora_actual = ahora.strftime("%H:%M %p")
     #print('Interpretada: ' + interpreter.suggest(message)[0])
-    responses=Response.getResponses()
+    responses=Response.getResponseLocal()
     finalMessage = message #interpreter.suggest(message)
     mp=MessageProcessor(responses)
     response=mp.get_response(finalMessage)

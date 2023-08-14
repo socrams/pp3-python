@@ -9,6 +9,7 @@ class MessageProcessor:
 
     def get_response(self, user_input):
         split_message = re.split(r'\s|[,:;.?!-_]\s*', str(user_input).lower())
+        print(split_message)
         _response = self.check_all_message(split_message)
         return _response
 
