@@ -364,7 +364,7 @@ def BGProfesor(idCarrera, idMateria, id):
 @app.route('/response/', methods=['GET'])
 def response():
         responses=Response.getResponses()
-        return jsonify({'responses' : [response.to_dict() for response in responses]})
+        return jsonify(responses)
 
 @app.route('/response/<id>', methods=['PUT'])    
 def putResponse(id):

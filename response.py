@@ -13,14 +13,14 @@ class Response(Base):
     moreQuestion=Column(Boolean)
     moreOptions=Column(Boolean)
 
-    @staticmethod
+    @staticmethod   
     def getResponses():
         conn=Connection()
         session=conn.getSession()
         allresponse=session.query(Response).all()
         session.close()
         conn.closeConnection()
-        return allresponse
+        return [r.to_dict() for r in allresponse]
     
     @staticmethod
     def getResponse(_id):
