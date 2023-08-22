@@ -424,5 +424,5 @@ def getObject(message, responses):
     return error_response.to_dict()
 
 if __name__=="__main__":
-    # app.run(debug=True)
-    app.run(debug=False)
+    app.run(debug=True)
+    # app.run(debug=False)
