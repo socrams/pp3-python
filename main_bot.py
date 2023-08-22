@@ -27,7 +27,9 @@ CORS(app)
 
 
 #interpreter=enchant.Dict(LANGUAJE)
-
+@app.route('/')
+def hello():
+    return jsonify(message="¡Hola, esta es una API Flask!")
 ######################## Obtener usuarios ################################
 @app.route('/validateToken/', methods=['GET'])
 def validateToken():
@@ -422,5 +424,5 @@ def getObject(message, responses):
     return error_response.to_dict()
 
 if __name__=="__main__":
-    app.run(debug=True)
-
+    # app.run(debug=True)
+    app.run(debug=False)
