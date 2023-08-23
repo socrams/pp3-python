@@ -12,6 +12,7 @@ class Connection:
                            host=URL_DB,
                             database=NAME_DB
                            )
+        print("me conecte! " + self.url)
         self.engine=create_engine(self.url)
         Session=sessionmaker(bind=self.engine)   
         self.session=Session()
