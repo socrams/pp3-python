@@ -1,14 +1,22 @@
 {
     "builds":[
         {
-            "src":"/pp3-python/main.py",
+            "src":"main.py",
             "use": "@vercel/python"
         }
     ],
     "routes":[
         {
-            "src":"/pp3-python/(.*)",
-            "dest":"/pp3-python/main.py"
+            "src":"/(.*)",
+            "dest":"main.py",
+            "statusCodes":{
+                "403": "/error-page/",
+                "500": "/",
+                "*": "/"
+                },
+                "headers":{
+                    "Cache-Control": "s-maxage=1, stale-while-revalidate"
+                    }
         }
     ]
 }
