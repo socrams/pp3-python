@@ -13,7 +13,15 @@ class Connection:
                             database=NAME_DB
                            )
         self.engine=create_engine(self.url)
-        Session=sessionmaker(bind=self.engine)                    
+        Session=sessionmaker(bind=self.engine)   
+        self.session=Session()
+
+    def getSession(self):
+        return self.session
+    
+    def closeConnection(self):
+            self.engine.dispose()
+
 #class Connection:
 #    def __init__(self) -> None:
 #        self.uriDB=MOTOR_DB+'://'+USER_DB+':'+PASS_DB+'@'+URL_DB+'/'+NAME_DB
