@@ -9,15 +9,7 @@
     "routes":[
         {
             "src":"/(.*)",
-            "dest":"main.py",
-            "statusCodes":{
-                "403": "/error-page/",
-                "500": "/",
-                "*": "/"
-                },
-                "headers":{
-                    "Cache-Control": "s-maxage=1, stale-while-revalidate"
-                    }
+            "dest":"main.py"
         }
     ]
 }
