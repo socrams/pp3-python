@@ -13,6 +13,7 @@ class Connection:
                             database=NAME_DB
                            )
         print("me conecte!")
+        print("agrego algo para q1ue cambie")
         self.engine=create_engine(self.url)
         Session=sessionmaker(bind=self.engine)   
         self.session=Session()
