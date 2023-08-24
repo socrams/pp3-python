@@ -4,7 +4,7 @@ from connection import Connection
 Base=declarative_base()
 
 class Response(Base):
-    __tablename__= 'BOT_RESPONSE'
+    __tablename__= 'bot_response'
 
     id=Column(Integer, primary_key=True)
     answer=Column(String(500))
