@@ -7,7 +7,7 @@ from config import SIGNATURE_KEY
 Base=declarative_base()
 
 class Materia(Base):
-    __tablename__= 'MATERIAS'
+    __tablename__= 'materias'
 
     id = Column(Integer, primary_key=True)
     carrera_id = Column(Integer)
