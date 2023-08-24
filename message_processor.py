@@ -43,7 +43,7 @@ class MessageProcessor:
             highest_prob[bot_response] = self.message_probability(message, list_of_words, single_response, required_words)
 
         for r in self.responses:
-            botresponse(r.response, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()), r.moreQuestion, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()))
+            botresponse(r.response, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()), r.morequestion, re.split(r'\s|[,:;.?!-_]\s*', str(r.answer).lower()))
 
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob)
