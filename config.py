@@ -12,7 +12,7 @@ POSTGRES_HOST="ep-purple-band-71611649-pooler.us-east-1.postgres.vercel-storage.
 POSTGRES_DATABASE="verceldb"
 
 MOTOR_DB='mysql+pymysql'
-URL_DB="postgres://default:IQKX0SzRq9jT@ep-purple-band-71611649-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb"
+URL_DB="postgres://default:IQKX0SzRq9jT@ep-purple-band-71611649-pooler.us-east-1.postgres.vercel-storage.com:5432/"
 NAME_DB="verceldb"
 USER_DB="default"
 PASS_DB="IQKX0SzRq9jT"
