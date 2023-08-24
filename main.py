@@ -368,8 +368,13 @@ def BGProfesor(idCarrera, idMateria, id):
 
 @app.route('/response/', methods=['GET'])
 def response():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    if _token_status == True:
         responses=Response.getResponses()
         return jsonify(responses)
+    else:
+        return jsonify(_token_status), 401
 
 @app.route('/response/<id>', methods=['PUT'])    
 def putResponse(id):
