@@ -320,7 +320,6 @@ def BGMateria(idCarrera, id):
 def AMGProfesor(idCarrera, id):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
-         
     if _token_status == True:    
         if request.method == 'GET':
             profesor=MateriaProfesor().getMateriaProfesor(id)
