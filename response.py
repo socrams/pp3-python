@@ -76,12 +76,12 @@ class Response(Base):
                 dbResponse.options = _response.options
                 modificated = True
 
-            if (dbResponse.moreQuestion != _response.moreQuestion):
-                dbResponse.moreQuestion = _response.moreQuestion
+            if (dbResponse.morequestion != _response.morequestion):
+                dbResponse.morequestion = _response.morequestion
                 modificated = True
             
-            if (dbResponse.moreOptions != _response.moreOptions):
-                dbResponse.moreOptions = _response.moreOptions
+            if (dbResponse.moreoptions != _response.moreoptions):
+                dbResponse.moreoptions = _response.moreoptions
                 modificated = True
 
             if (modificated):
@@ -104,6 +104,6 @@ class Response(Base):
             'answer': self.answer,
             'response': self.response,
             'options': self.options,
-            'moreQuestion': self.moreQuestion,
-            'moreOptions': self.moreOptions
+            'morequestion': self.morequestion,
+            'moreoptions': self.moreoptions
         }
