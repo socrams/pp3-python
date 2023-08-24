@@ -9,7 +9,7 @@ from config import SIGNATURE_KEY
 Base=declarative_base()
 
 class User(Base):
-    __tablename__ = 'USERS'
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
