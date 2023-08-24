@@ -7,7 +7,7 @@ import psycopg2
 
 class Connection:
     def __init__(self) -> None:
-        self.url=URL.create(drivername="posgresql",
+        self.url=URL.create(drivername="postgresql",
                             username=USER_DB,
                             password=PASS_DB,
                            host=URL_DB,
