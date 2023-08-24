@@ -7,7 +7,7 @@ from config import SIGNATURE_KEY
 Base=declarative_base()
 
 class Carrera(Base):
-    __tablename__= 'CARRERAS'
+    __tablename__= 'carreras'
 
     id = Column(Integer, primary_key=True)
     descripcion = Column(String(255))
