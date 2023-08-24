@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine import URL
 from sqlalchemy.dialects import postgresql, mysql, mssql
-from config import URL_DB, TRACK_MODIFICATIONS, USER_DB, PASS_DB, MOTOR_DB, NAME_DB
+from config import URL_DB, TRACK_MODIFICATIONS, USER_DB, PASS_DB, MOTOR_DB, NAME_DB,POSTGRES_DATABASE,POSTGRES_HOST
 import psycopg2
 
 class Connection:
@@ -10,8 +10,8 @@ class Connection:
         self.url=URL.create(drivername="postgresql",
                             username=USER_DB,
                             password=PASS_DB,
-                           host=URL_DB,
-                            database=NAME_DB
+                           host=POSTGRES_HOST,
+                            database=POSTGRES_DATABASE
                            )
         print("me conecte!")
         print("agrego algo para q1ue cambie")
