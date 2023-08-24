@@ -30,7 +30,7 @@ class User(Base):
     def getUsers():
         conn=Connection()
         session=conn.getSession()
-        allUser=session.query(User).filter(User.enabled == True).all()
+        allUser=session.query(User).filter(User.enabled == 1).all()
         session.close()
         conn.closeConnection()
         return [u.to_dict() for u in allUser]
