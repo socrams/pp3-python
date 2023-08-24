@@ -10,8 +10,8 @@ class Response(Base):
     answer=Column(String(500))
     response=Column(String(2000))
     options=Column(String(2000))
-    moreQuestion=Column(Boolean)
-    moreOptions=Column(Boolean)
+    morequestion=Column(Boolean)
+    moreoptions=Column(Boolean)
 
     @staticmethod   
     def getResponses():
