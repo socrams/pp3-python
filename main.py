@@ -91,12 +91,12 @@ def addUser():
         return jsonify(_token_status), 401
     
 
-# @app.route('/validateToken/', methods=['POST'])
-# def validateToken():
-#     _token = request.headers.get('Authorization')
-#     _token_status = User.validateToken(_token)
-#     print(_token_status)
-#     return _token_status == True
+@app.route('/validateToken/', methods=['POST'])
+def validateToken():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    print(_token_status)
+    return _token_status == True
 
 
 
