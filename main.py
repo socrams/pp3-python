@@ -41,7 +41,6 @@ def validateToken():
             return jsonify({'message': 'token valido'})
         else:
             return jsonify(_token_status), 401
-    
     elif request.methods == 'POST' :
         _token = request.headers.get('Authorization')
         _token_status = User.validateToken(_token)
@@ -189,7 +188,7 @@ def AMGCarreras():
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
     userId=User.getUserIDFromToken(_token)
-         
+
     if _token_status == True:
         
         if request.method == 'GET':
@@ -217,11 +216,11 @@ def AMGCarreras():
 
 @app.route('/carrera/<idCarrera>', methods=['GET', 'DELETE'])
 def DGCarrera(idCarrera):
-     
+    
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
     userId=User.getUserIDFromToken(_token)
-         
+        
     if _token_status == True:
         if request.method == 'GET':
             carrera=Carrera.getCarreraById(idCarrera)
@@ -238,7 +237,7 @@ def AMGInformacion(idCarrera):
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
     userId=User.getUserIDFromToken(_token)
-         
+        
     if _token_status == True:
         
         if request.method == 'GET':
