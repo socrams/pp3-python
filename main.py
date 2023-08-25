@@ -95,7 +95,8 @@ def addUser():
 def validateToken():
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
-    return (_token_status) == True
+    print(_token_status)
+    return _token_status == True
 
 
 
