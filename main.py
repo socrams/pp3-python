@@ -32,15 +32,23 @@ def hello():
     return "¡Hola, esta es una API Flask!"
 
 ######################## Obtener usuarios ################################
-@app.route('/validateToken/', methods=['GET'])
+@app.route('/validateToken/',methods=['GET', 'POST',])
 def validateToken():
-    _token = request.headers.get('Authorization')
-    _token_status = User.validateToken(_token)
-    if _token_status == True:
-        return jsonify({'message': 'token valido'})
-    else:
-        return jsonify(_token_status), 401
+    if request.methods == 'GET':
+        _token = request.headers.get('Authorization')
+        _token_status = User.validateToken(_token)
+        if _token_status == True:
+            return jsonify({'message': 'token valido'})
+        else:
+            return jsonify(_token_status), 401
     
+    elif request.methods == 'POST' :
+        _token = request.headers.get('Authorization')
+        _token_status = User.validateToken(_token)
+        print(_token_status)
+        return _token_status == True
+
+
 @app.route('/users/', methods=['GET'])
 def users():
     _token = request.headers.get('Authorization')
@@ -91,12 +99,12 @@ def addUser():
         return jsonify(_token_status), 401
     
 
-@app.route('/validateToken/', methods=['POST'])
-def validateToken():
-    _token = request.headers.get('Authorization')
-    _token_status = User.validateToken(_token)
-    print(_token_status)
-    return _token_status == True
+# @app.route('/validateToken/', methods=['POST'])
+# def validateToken():
+#     _token = request.headers.get('Authorization')
+#     _token_status = User.validateToken(_token)
+#     print(_token_status)
+#     return _token_status == True
 
 
 

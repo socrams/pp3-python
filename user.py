@@ -149,7 +149,7 @@ class User(Base):
             session.close()
             conn.closeConnection()
 
-    # @staticmethod
+    @staticmethod
     def generar_token(usuario_id):
         tiempo_expiracion = datetime.utcnow() + timedelta(minutes=30) 
         payload = {
