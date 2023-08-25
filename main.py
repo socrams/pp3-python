@@ -91,6 +91,14 @@ def addUser():
         return jsonify(_token_status), 401
     
 
+@app.route('/validateToken/', methods=['POST'])
+def validateToken():
+    _token = request.headers.get('Authorization')
+    _token_status = User.validateToken(_token)
+    return (_token_status) == True
+
+
+
 @app.route('/users/', methods=['PUT'])
 def putUser():
     _token = request.headers.get('Authorization')
