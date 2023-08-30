@@ -1,6 +1,6 @@
 import re
 
-from response import Response
+from responses.response import Response
 
 class MessageProcessor:
     
