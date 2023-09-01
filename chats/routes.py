@@ -6,7 +6,7 @@ import random
 
 chats_bp=Blueprint('chat', __name__)
 
-@chats_bp.route('/chat/<message>', methods=['GET'])
+@chats_bp.route('/<message>', methods=['GET'])
 def index(message):
     ahora = datetime.now()
     hora_actual = ahora.strftime("%H:%M %p")
