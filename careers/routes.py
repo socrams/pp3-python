@@ -1,13 +1,13 @@
 from flask import Flask, Blueprint, request, jsonify
-from carrera import Carrera
+from careers.carrera import Carrera
 from users.user import User
-from materia import Materia
-from materia_profesor import MateriaProfesor
-from carrera_informacion import CarreraInformacion
+from careers.materia import Materia
+from careers.materia_profesor import MateriaProfesor
+from careers.carrera_informacion import CarreraInformacion
 from datetime import datetime
 
 
-careers_bp = Blueprint('carrera', __name__)
+careers_bp = Blueprint('careers', __name__)
 
 @careers_bp.route('/', methods=['GET', 'POST', 'PUT'])
 def AMGCarreras():

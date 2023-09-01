@@ -1,10 +1,10 @@
-from flask import BluePrint, request, jsonify
+from flask import Blueprint, request, jsonify
 from responses.response import Response
-from message_processor import MessageProcessor
+from chats.message_processor import MessageProcessor
 from datetime import datetime
 import random
 
-chats_bp=BluePrint('chat', __name__)
+chats_bp=Blueprint('chat', __name__)
 
 @chats_bp.route('/chat/<message>', methods=['GET'])
 def index(message):

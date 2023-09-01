@@ -1,9 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine import URL
-from sqlalchemy.dialects import postgresql, mysql, mssql
-from config import URL_DB, TRACK_MODIFICATIONS, USER_DB, PASS_DB, MOTOR_DB, NAME_DB,POSTGRES_DATABASE,POSTGRES_HOST
-import psycopg2
+from config import USER_DB, PASS_DB, POSTGRES_DATABASE,POSTGRES_HOST
 
 class Connection:
     def __init__(self) -> None:
