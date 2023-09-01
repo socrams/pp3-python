@@ -4,7 +4,7 @@ from users.user import User
 
 response_bp = Blueprint('response', __name__)
 
-@response_bp.route('/response/', methods=['GET'])
+@response_bp.route('/', methods=['GET'])
 def response():
     _token = request.headers.get('Authorization')
     _token_status = User.validateToken(_token)
@@ -14,7 +14,7 @@ def response():
     else:
         return jsonify(_token_status), 401
 
-@response_bp.route('/response/<id>', methods=['PUT', 'DELETE', 'UPDATE'])    
+@response_bp.route('/<id>', methods=['PUT', 'DELETE', 'UPDATE'])    
 def putResponse(id):
     if request.method == 'PUT' or request.method == 'UPDATE':
         data = request.get_json(force = True)
@@ -38,7 +38,7 @@ def putResponse(id):
 
     return jsonify(result)
 
-@response_bp.route('/response/', methods=['POST'])
+@response_bp.route('/', methods=['POST'])
 def postResponse():
     data = request.get_json(force = True)
     id = data['id']
