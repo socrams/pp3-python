@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 CORS(app)
 #incluimos los routes de cada metodos
-app.register_blueprint(careers_bp, url_prefix='/carrera')
+#app.register_blueprint(careers_bp, url_prefix='/carrera')
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(chats_bp, url_prefix='/chat')
 
