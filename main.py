@@ -29,7 +29,6 @@ app.register_blueprint(response_bp, url_prefix='/response')
 def hello():
     return "¡Hola, esta es una API Flask!"
 
-
 if __name__=="__main__":
     app.run(debug=True)
     # app.run(debug=False)
