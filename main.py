@@ -12,8 +12,9 @@ from chats.routes import chats_bp
 from responses.routes import response_bp
 # import enchant
 
-CORS(app)
 app = Flask(__name__)
+CORS(app)
+@cross_origin(allow_credentials=True)
 
 #incluimos los routes de cada metodos
 app.register_blueprint(careers_bp, url_prefix='/carrera')
