@@ -25,7 +25,7 @@ app.register_blueprint(response_bp, url_prefix='/response')
 
 #interpreter=enchant.Dict(LANGUAJE)
 @app.route('/')
-@cross_origin(allow_credentials=True)
+# @cross_origin(allow_credentials=True)
 def hello():
     return "¡Hola, esta es una API Flask!"
 

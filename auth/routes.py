@@ -4,10 +4,9 @@ from flask_cors import CORS
 from users.user import User
 
 auth_bp = Blueprint('auth', __name__)
-CORS(app)
+CORS()
 
 @auth_bp.route('/login/', methods=['POST'])
-#@cross_origin(allow_credentials=True)
 def login():
     try:
         credentials = request.get_json()
