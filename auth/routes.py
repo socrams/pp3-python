@@ -2,6 +2,9 @@ from flask import Blueprint, request, jsonify
 from users.user import User
 
 auth_bp = Blueprint('auth', __name__)
+
+@cross_origin(allow_credentials=True)
+
 @auth_bp.route('/login/', methods=['POST'])
 def login():
     try:
