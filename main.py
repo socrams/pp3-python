@@ -10,6 +10,8 @@ from auth.routes import auth_bp
 from careers.routes import careers_bp
 from chats.routes import chats_bp
 from responses.routes import response_bp
+from users.routes import user_bp
+
 # import enchant
 
 app = Flask(__name__)
@@ -20,7 +22,7 @@ app.register_blueprint(careers_bp, url_prefix='/carrera')
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(chats_bp, url_prefix='/chat')
 app.register_blueprint(response_bp, url_prefix='/response')
-
+app.register_blueprint(user_bp, url_prefix='/users')
 
 
 #interpreter=enchant.Dict(LANGUAJE)
