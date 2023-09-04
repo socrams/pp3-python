@@ -11,6 +11,7 @@ def index(message):
     ahora = datetime.now()
     hora_actual = ahora.strftime("%H:%M %p")
     responses=Response.getResponseLocal()
+    print(responses)
     finalMessage = message
     mp=MessageProcessor(responses)
     response=mp.get_response(finalMessage)
