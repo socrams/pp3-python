@@ -1,9 +1,12 @@
 from flask import Blueprint, request, jsonify
+
+from flask_cors import CORS
 from users.user import User
 
 auth_bp = Blueprint('auth', __name__)
+CORS()
 
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login/', methods=['POST'])
 def login():
     try:
         credentials = request.get_json()
