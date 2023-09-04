@@ -15,7 +15,7 @@ from users.routes import user_bp
 # import enchant
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://pp3-socrams.vercel.app"])
 
 #incluimos los routes de cada metodos
 app.register_blueprint(careers_bp, url_prefix='/carrera')
