@@ -15,7 +15,7 @@ from users.routes import user_bp
 # import enchant
 
 app = Flask(__name__)
-CORS(app, resources={r"/auth/*": {"origins": "https://pp3-socrams.vercel.app"}})
+CORS(app)
 
 
 #incluimos los routes de cada metodos
