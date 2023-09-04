@@ -6,6 +6,11 @@ from users.user import User
 auth_bp = Blueprint('auth', __name__)
 CORS()
 
+
+@auth_bp.route('/login', methods=['OPTIONS'])
+def handle_options():
+    return '', 200
+
 @auth_bp.route('/login/', methods=['POST'])
 def login():
     try:
