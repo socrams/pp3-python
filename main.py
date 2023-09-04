@@ -29,7 +29,7 @@ app.register_blueprint(user_bp, url_prefix='/users')
 @app.route('/')
 # @cross_origin(allow_credentials=True)
 def hello():
-    return "¡Hola, esta es una API Flask!"
+    return "¡Hola, esta es una API Mejorada de Flask!"
 
 if __name__=="__main__":
     app.run(debug=True)
