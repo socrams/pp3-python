@@ -62,7 +62,9 @@ class Response(Base):
         session=conn.getSession()
         dbResponse = session.query(Response).filter(Response.id == _response.id).first()
         modificated = False
-        print(dbResponse)
+        print(dbResponse.to_dict())
+        print("---------------------")
+        print(_response.to_dict())
         if (dbResponse):
             if (dbResponse.answer != _response.answer):
                 dbResponse.answer = _response.answer
@@ -86,6 +88,8 @@ class Response(Base):
 
             if (modificated):
                 session.commit()
+
+                print(dbResponse.to_dict())
                 message = {'message':'Se actualizo la respuesta.'}
             else:
                 message = {'message':'No se actualizo la respuesta.'}
