@@ -27,17 +27,15 @@ def login():
         print('Error al desencriptar. Detalle', e)
         return jsonify({'message': 'ERROR'})    
 
-@auth_bp.route('/validateToken/',methods=['GET', 'POST',])
+@auth_bp.route('/validateToken/',methods=['GET', 'POST'])
 def validateToken():
-    if request.methods == 'GET':
+    if request.method == 'GET':
         _token = request.headers.get('Authorization')
         _token_status = User.validateToken(_token)
-        if _token_status == True:
-            return jsonify({'message': 'token valido'})
-        else:
-            return jsonify(_token_status), 401
-    elif request.methods == 'POST' :
+        return (_token_status == True), 200
+    elif request.method == 'POST':
         _token = request.headers.get('Authorization')
+        print(_token)
         _token_status = User.validateToken(_token)
         print(_token_status)
-        return _token_status == True
+        return jsonify(_token_status == True), 200

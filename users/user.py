@@ -162,6 +162,7 @@ class User(Base):
     def validateToken(token):
         try:
             payload = jwt.decode(token, SIGNATURE_KEY, algorithms=['HS256'])
+            print(payload)
             user_id = payload['usuario_id']
 
         except jwt.ExpiredSignatureError:
