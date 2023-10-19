@@ -53,7 +53,7 @@ class Response(Base):
         else:
             session.close()
             conn.closeConnection()
-            return {'message':'Se elimino la respuesta.'}
+            return {'message':'No se elimino la respuesta.'}
         
 
     @staticmethod
