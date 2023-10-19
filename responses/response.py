@@ -34,7 +34,7 @@ class Response(Base):
     def getResponse(_id):
         conn=Connection()
         session=conn.getSession()
-        _response=session.query(Response).filter(id == _id).first()
+        _response=session.query(Response).filter(Response.id == _id).first()
         session.close()
         conn.closeConnection()
         return _response.to_dict()
@@ -43,7 +43,7 @@ class Response(Base):
     def delResponse(_id):
         conn=Connection()
         session=conn.getSession()
-        _response=session.query(Response).filter(id == _id).first()
+        _response=session.query(Response).filter(Response.id == _id).first()
         if _response:
             session.delete(_response)
             session.commit()
