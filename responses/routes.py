@@ -34,6 +34,7 @@ def putResponse(id):
         otro_response.moreOptions=moreOptions
         result = Response.updateResponse(otro_response)
     else:
+        id = data['id']
         result = Response.delResponse(id)
 
     return jsonify(result)

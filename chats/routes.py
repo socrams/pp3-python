@@ -27,8 +27,8 @@ def getObject(message, responses):
     error_response = Response()
     error_response.answer = "Palabra no encontrada"
     error_response.id = -1
-    error_response.response = ['Puedes decirlo con otras palabras? No estoy comprendiendo lo que necesitas. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'No estoy seguro de lo que quieres. Si quieres ayuda, puedes enviar Menu para brindarte opciones.', 'Intenta con otras palabras. Si quieres ayuda, puedes enviar Menu para brindarte opciones.'][random.randrange(3)]
-    error_response.options = "Menu, informacion de carreras"
+    error_response.response = ['Puedes decirlo con otras palabras? No estoy comprendiendo lo que necesitas. Si quieres ayuda, Ház click en AYUDA para brindarte opciones.'][random.randrange(3)]
+    error_response.options = "Ayuda"
     error_response.moreOptions = True
     error_response.moreQuestion = False
 
