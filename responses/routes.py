@@ -42,6 +42,7 @@ def putResponse(id):
 @response_bp.route('/', methods=['POST'])
 def postResponse():
     data = request.get_json(force = True)
+    print(data)
     id = data['id']
     answer = data['answer']
     response= data['response']
