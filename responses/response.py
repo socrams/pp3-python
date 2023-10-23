@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, insert
 from connection import Connection
 Base=declarative_base()
 
@@ -54,7 +54,22 @@ class Response(Base):
             session.close()
             conn.closeConnection()
             return {'message':'No se encontró la respuesta.'}
-        
+
+    @staticmethod
+    def addResponse(_response):
+        conn=Connection()
+        session=conn.getSession()
+        smt = (
+            insert (table='bot_response').values(answer = _response.answer, 
+                             response = _response.response,
+                             options = _response.options,
+                             moreOptions = _response.moreOptions,
+                             moreQuestion = _response.moreQuestion)
+        )        
+        session.execute(smt)
+        session.close()
+        conn.closeConnection()
+        return {'message': 'insertado correctamente'}
 
     @staticmethod
     def updateResponse(_response):

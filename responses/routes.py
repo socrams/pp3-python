@@ -55,5 +55,5 @@ def postResponse():
     otro_response.options=options
     otro_response.moreQuestion=moreQuestion
     otro_response.moreOptions=moreOptions
-    result = Response.updateResponse(otro_response)
+    result = Response.addResponse(otro_response)
     return jsonify(result)
