@@ -63,8 +63,8 @@ class Response(Base):
             insert (table='bot_response').values(answer = _response.answer, 
                              response = _response.response,
                              options = _response.options,
-                             moreOptions = _response.moreOptions,
-                             moreQuestion = _response.moreQuestion)
+                             moreOptions = _response.moreoptions,
+                             moreQuestion = _response.morequestion)
         )        
         session.execute(smt)
         session.close()
