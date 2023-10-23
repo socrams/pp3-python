@@ -60,7 +60,7 @@ class MessageProcessor:
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob[best_match])
 
-        return self.unknown() if highest_prob[best_match] < 20 else best_match
+        return self.unknown() if highest_prob[best_match] < 5 else best_match
 
     def unknown(self):
         response = ["ERROR"]
