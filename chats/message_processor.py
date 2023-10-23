@@ -17,15 +17,8 @@ class MessageProcessor:
         message_certainty = 0
         has_required_words = True
 
-        #print(user_message)
-        #print(recognized_words)
-        #print(single_response)
-        #print(required_word)
-        print("---------------------------")
-
         for word in user_message:
             if word in recognized_words:
-                print("encontre: " + word)
                 message_certainty+=1
 
         # Calcular la probabilidad basada en el número total de palabras en el mensaje del usuario
@@ -67,7 +60,7 @@ class MessageProcessor:
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob[best_match])
 
-        return self.unknown() if highest_prob[best_match] < 1 else best_match
+        return self.unknown() if highest_prob[best_match] < 20 else best_match
 
     def unknown(self):
         response = ["ERROR"]
