@@ -43,7 +43,7 @@ def putResponse(id):
 def postResponse():
     data = request.get_json(force = True)
     print(data)
-    id = data['id']
+    id_ = data['id']
     answer = data['answer']
     response= data['response']
     options = data['options']
@@ -51,7 +51,7 @@ def postResponse():
     moreQuestion = data['moreQuestion']
     response = data['response']
     otro_response=Response()
-    otro_response.id = id
+    otro_response.id = id_
     otro_response.answer= answer
     otro_response.response=response
     otro_response.options=options
