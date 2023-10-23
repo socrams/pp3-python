@@ -51,7 +51,6 @@ def postResponse():
     moreQuestion = data['moreQuestion']
     response = data['response']
     otro_response=Response()
-    otro_response.id = id_
     otro_response.answer= answer
     otro_response.response=response
     otro_response.options=options
