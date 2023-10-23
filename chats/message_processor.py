@@ -28,17 +28,29 @@ class MessageProcessor:
                 print("encontre: " + word)
                 message_certainty+=1
 
-        percentage = float(message_certainty) / float (len(recognized_words))
-        print(percentage)
+        # Calcular la probabilidad basada en el número total de palabras en el mensaje del usuario
+        if user_message:
+            percentage = float(message_certainty) / len(user_message) * 100
+        else:
+            percentage = 0
+
+        #print(" ".format(user_message))
+        #print("Reconocidas: ".format(float (len(recognized_words))))
+        #print("encontrada: ".format(float(message_certainty)))
+        #percentage = float(message_certainty) / float (len(recognized_words))
+        #print(percentage)
         for word in required_word:
             if word not in user_message:
                 has_required_words = False
                 break
-            else:
-                print('es igual')
 
+        if has_required_words or single_response:
+            return int(percentage)
+        else:
+            return 0
+        
         #if has_required_words or single_response:
-        return int(percentage * 100)
+        #return int(percentage * 100)
         #else:
         #    return 0
 
@@ -55,7 +67,7 @@ class MessageProcessor:
         best_match = max(highest_prob, key=highest_prob.get)
         print(highest_prob[best_match])
 
-        return self.unknown() if highest_prob[best_match] < 20 else best_match
+        return self.unknown() if highest_prob[best_match] < 1 else best_match
 
     def unknown(self):
         response = ["ERROR"]
