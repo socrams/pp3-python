@@ -59,14 +59,7 @@ class Response(Base):
     def addResponse(_response):
         conn=Connection()
         session=conn.getSession()
-        smt = (
-            insert (table='bot_response').values(answer = _response.answer, 
-                             response = _response.response,
-                             options = _response.options,
-                             moreOptions = _response.moreoptions,
-                             moreQuestion = _response.morequestion)
-        )        
-        session.execute(smt)
+        session.commit()
         session.close()
         conn.closeConnection()
         return {'message': 'insertado correctamente'}
