@@ -47,8 +47,8 @@ def postResponse():
     answer = data['answer']
     response= data['response']
     options = data['options']
-    moreOptions = data['moreOptions']
-    moreQuestion = data['moreQuestion']
+    moreOptions = data['moreoptions']
+    moreQuestion = data['morequestion']
     response = data['response']
     otro_response=Response()
     otro_response.answer= answer
