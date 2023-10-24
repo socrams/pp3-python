@@ -59,6 +59,7 @@ class Response(Base):
     def addResponse(_response):
         conn=Connection()
         session=conn.getSession()
+        session.add(_response)
         session.commit()
         session.close()
         conn.closeConnection()
